@@ -54,7 +54,7 @@ const usuario = [{
 ] 
 
 
-//recorrer usuario, agregar 5 usuarios que se validen , agregar capa de typescript
+//TODO:recorrer usuario, agregar 5 usuarios que se validen , agregar capa de typescript
 //cambiar require por import 
 
 
