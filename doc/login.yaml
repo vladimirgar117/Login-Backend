@@ -3,16 +3,19 @@ info:
   title: API de Autenticación
   version: 1.0.0
   description: API para login de usuarios
-
+servers:
+  - url: http://localhost:3000"{basepath}
+    description: 'Servidor local '
 paths:
   /login:
     post:
       summary: Login de usuario
+      tags: [Autenticacion]
       description: Permite autenticar un usuario.
-    requestBody:
+      requestBody:
         required: true
         content:
-        application/json:
+          application/json:
             schema:
               type: object
               properties:
@@ -22,14 +25,13 @@ paths:
                 password:
                   type: string
                   example: 1234
-                  required:
-                      -username
-                      -password
-            responses:
+              required:
+                - username
+                - password
+      responses:
         "200":
           description: Login correcto
         "401":
-          description: Credenciales incorrectas
+          description: Datos Incorrectos
         "400":
           description: Faltan datos
- 
