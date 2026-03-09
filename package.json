@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +14,14 @@
     "express": "^5.2.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vladimirgar117/Login-Backend.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/vladimirgar117/Login-Backend/issues"
+  },
+  "homepage": "https://github.com/vladimirgar117/Login-Backend#readme"
 }

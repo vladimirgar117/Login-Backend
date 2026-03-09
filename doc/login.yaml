@@ -1,0 +1,30 @@
+
+
+  /login:
+    post:
+      summary: Login de usuario
+      description: Permite autenticar un usuario.
+    requestBody:
+        required: true
+        content:
+        application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: admin
+                password:
+                  type: string
+                  example: 1234
+                  required:
+                      -username
+                      -password
+            responses:
+        "200":
+          description: Login correcto
+        "401":
+          description: Credenciales incorrectas
+        "400":
+          description: Faltan datos
+ 
