@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Simple</title>
+</head>
+<body>
+
+  <h2>Login</h2>
+
+  <input id="username" placeholder="Usuario">
+  <br><br>
+  <input id="password" type="password" placeholder="Contraseña">
+  <br><br>
+  <button onclick="login()">Entrar</button>
+
+  <p id="resultado"></p>
+
+  <script>
+    function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      fetch("/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, password })
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("resultado").innerText = data.message;
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
+    }
+  </script>
+
+</body>
+</html>
