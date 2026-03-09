@@ -43,6 +43,21 @@ const specs = swaggerJsdoc(options);
 const USERNAME = "admin"
 const PASSWORD = "1234"
 
+const usuario = [{
+  "usuario" : "admin",
+  "password" : "1234"
+} ,
+
+{"usuario" : "admin2",
+ "password":  "1234"
+}
+] 
+
+
+//TODO:recorrer usuario, agregar 5 usuarios que se validen , agregar capa de typescript
+//cambiar require por import 
+
+
 //se crea la ruta de login
 app.post("/login", (req, res) => {
 const {username, password } = req.body;
@@ -54,7 +69,7 @@ const {username, password } = req.body;
   if (username === USERNAME && password === PASSWORD) {
         return res.json({ message: "Login correcto" });
           } else {
-    return res.status(401).json({ message: "Credenciales incorrectas" });
+    return res.status(401).json({ message: "Datos Incorrectos" });
   }
 });
 

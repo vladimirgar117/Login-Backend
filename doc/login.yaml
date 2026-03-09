@@ -4,32 +4,79 @@ info:
   version: 1.0.0
   description: API para login de usuarios
 
+servers:
+  - url: http://localhost:3000
+    description: Servidor local
+
 paths:
   /login:
     post:
       summary: Login de usuario
-      description: Permite autenticar un usuario.
-    requestBody:
+      tags:
+        - Autenticación
+      description: Permite autenticar un usuario
+      requestBody:
         required: true
         content:
-        application/json:
+          application/json:
             schema:
-              type: object
-              properties:
-                username:
-                  type: string
-                  example: admin
-                password:
-                  type: string
-                  example: 1234
-                  required:
-                      -username
-                      -password
-            responses:
+              $ref: '#/components/schemas/LoginRequest'
+
+      responses:
         "200":
-          description: Login correcto
+          description: Operacion exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+
         "401":
-          description: Credenciales incorrectas
+          description: Datos incorrectos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+               message: Datos incorrectos
+
         "400":
           description: Faltan datos
- 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+               message: Faltan datos
+
+components:
+  schemas:
+
+    LoginRequest:
+      title: Solicitud de inicio de sesión
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          example: admin
+        password:
+          type: string
+          example: 1234
+
+    LoginResponse:
+      title: Respuesta de inicio de sesión
+      type: object
+      properties:
+        mensaje:
+         type: string
+         
+
+    ErrorResponse:
+      title: Respuesta de error
+      type: object
+      properties:
+        message:
+          type: string
+          
