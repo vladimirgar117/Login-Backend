@@ -36,8 +36,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-              example:
-               message: Datos incorrectos
+              
 
         "400":
           description: Faltan datos
@@ -45,8 +44,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-              example:
-               message: Faltan datos
+             
+                
 
 components:
   schemas:
@@ -70,13 +69,14 @@ components:
       type: object
       properties:
         mensaje:
-         type: string
+          type: string
          
 
     ErrorResponse:
       title: Respuesta de error
       type: object
       properties:
-        message:
+        mensaje:
           type: string
-          
+        detalles: 
+          type: string

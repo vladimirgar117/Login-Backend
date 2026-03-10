@@ -5,11 +5,6 @@ const swaggerJsdoc = require("swagger-jsdoc");
 // importa Express
 const express = require("express");
 
-//import express from "express"
-//import swaggerUi from "swagger-ui-express"
-//import swaggerJsdoc from "swagger-jsdoc"
-//import path from "path"
-
 
 
 // aplicacion que manejara las rutas
@@ -46,10 +41,10 @@ const specs = swaggerJsdoc(options);
 
 
 //Usuario de prueba
-const USERNAME = "admin"
+const USERNAME= "admin"
 const PASSWORD = "1234"
 
-
+ 
 const usuarios = [
   { usuario: "admin1", password: "1234" },
   { usuario: "admin2", password: "1234" },
@@ -58,9 +53,30 @@ const usuarios = [
   { usuario: "admin5", password: "1234" }
 ];
 
+//migracion-ts
+//TODO: agregar 5 usuarios que se validen ,  recorrer cada usuario y que cada uno sea valido en login.
 
-//TODO:recorrer usuario, agregar 5 usuarios que se validen , agregar capa de typescript
-//cambiar require por import 
+//se crea la ruta de login
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+
+  // validar que se enviaron datos
+  if (!username || !password) {
+    return res.status(400).json({ message: "Faltan datos" });
+  }
+
+  // buscar usuario en el arreglo
+  const usuarioValido = usuarios.find(
+    (u) => u.usuario === username && u.password === password
+  );
+
+  if (usuarioValido) {
+    return res.json({ message: "Login correcto", user: usuarioValido.usuario });
+  } else {
+    return res.status(401).json({ message: "Datos incorrectos" });
+  }
+});
+
 
 
 
@@ -95,14 +111,20 @@ const usuarios = [
 //ruta de documentacion
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
+
+
+
 //se crea la ruta de login
  app.post("/login", (req, res) => { const {username, password } = req.body;
 
   //se valida que el usuario haya enviado datos 
-  if (!username || !password) { return res.status(400).json({ message: "Faltan datos" });
+  if (!username || !password) 
+    { return res.status(400).json({ message: "Faltan datos" });
  } 
-  if (username === USERNAME && password === PASSWORD) { return res.json({ message: "Login correcto" }); }
-   else { return res.status(401).json({ message: "Datos Incorrectos" }); } });
+  if (username === USERNAME && password === PASSWORD) 
+    { return res.json({ message: "Login correcto" }); }
+   else 
+    { return res.status(401).json({ message: "Datos Incorrectos" }); } });
 
 
 
