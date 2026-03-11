@@ -26,9 +26,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 
 
-//Usuario de prueba
-const USERNAME= "admin"
-const PASSWORD = "1234"
+
 
 //arreglo de usuarios
 const usuarios = [
@@ -36,12 +34,15 @@ const usuarios = [
   { usuario: "admin2", password: "1234" },
   { usuario: "admin3", password: "1234" },
   { usuario: "admin4", password: "1234" },
-  { usuario: "admin5", password: "1234" }
+  { usuario: "admin5", password: "1234" },
+  { usuario: "admin", password: "12345" }
 ];
 
 
 //TODO: agregar 5 usuarios que se validen ,  recorrer cada usuario y que cada uno sea valido en login.
-
+// rama con node, typescript y nodemon
+//validar usuarios con mayusculas y contraseñas diferentes.
+//verificar los status
 
 //se crea la ruta de login
 app.post("/login", (req, res) => {
