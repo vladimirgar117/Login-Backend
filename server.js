@@ -1,9 +1,11 @@
-//importa Swagger
-const swaggerUi = require("swagger-ui-express");
-const swaggerJsdoc = require("swagger-jsdoc");
+import swaggerUi from "swagger-ui-express";
+import swaggerJsdoc from "swagger-jsdoc";
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// importa Express
-const express = require("express");
 
 
 
@@ -12,7 +14,6 @@ const app = express();
 //se recibe JSON
 app.use(express.json());
 
-const path = require("path");
 
 // Servir archivos estáticos (frontend)
 app.use(express.static(path.join(__dirname, "public")));
@@ -114,17 +115,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 
 
-//se crea la ruta de login
- app.post("/login", (req, res) => { const {username, password } = req.body;
-
-  //se valida que el usuario haya enviado datos 
-  if (!username || !password) 
-    { return res.status(400).json({ message: "Faltan datos" });
- } 
-  if (username === USERNAME && password === PASSWORD) 
-    { return res.json({ message: "Login correcto" }); }
-   else 
-    { return res.status(401).json({ message: "Datos Incorrectos" }); } });
 
 
 
