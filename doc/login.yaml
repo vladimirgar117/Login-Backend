@@ -5,8 +5,14 @@ info:
   description: API para login de usuarios
 
 servers:
-  - url: http://localhost:3000
+  - url: http://localhost:3000/v1
     description: Servidor local
+    variables:
+      basepath:
+        default: v1
+        description: 'Versión de la api'
+        enum:
+          - 'v1'
 
 paths:
   /login:

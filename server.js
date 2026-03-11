@@ -1,5 +1,8 @@
+//importa Swagger
 import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
+
+// importa Express
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -18,25 +21,7 @@ app.use(express.json());
 // Servir archivos estáticos (frontend)
 app.use(express.static(path.join(__dirname, "public")));
 
-//configuracion openApi
-const options = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "API Login",
-      version: "1.0.0",
-      description: "API simple de login con Express"
-    },
-    servers: [
-      {
-        url: "http://localhost:3000"
-      }
-    ]
-  },
-  apis: ["./server.js"]
-};
 
-const specs = swaggerJsdoc(options);
 
 
 
@@ -45,7 +30,7 @@ const specs = swaggerJsdoc(options);
 const USERNAME= "admin"
 const PASSWORD = "1234"
 
- 
+//arreglo de usuarios
 const usuarios = [
   { usuario: "admin1", password: "1234" },
   { usuario: "admin2", password: "1234" },
@@ -54,8 +39,9 @@ const usuarios = [
   { usuario: "admin5", password: "1234" }
 ];
 
-//migracion-ts
+
 //TODO: agregar 5 usuarios que se validen ,  recorrer cada usuario y que cada uno sea valido en login.
+
 
 //se crea la ruta de login
 app.post("/login", (req, res) => {
@@ -81,43 +67,117 @@ app.post("/login", (req, res) => {
 
 
 
+//configuracion openApi
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "API Login",
+      version: "1.0.0",
+      description: "API para login de usuarios"
+    },
+    servers: [
+      {
+        url: "http://localhost:3000/{basepath}",
+        description: "Servidor local",
+        variables: {                  
+          basepath: {                   
+            default: "v1",
+            description: "Versión de la api",
+            enum: [- "v1"]
+             }
+        }
+        
+      }
+      
+    ]
+    
+  },
+  apis: ["./server.js"]
+};
+
+const specs = swaggerJsdoc(options);
+
+
+
+
 /**
  * @swagger
- * /login:
- *   post:
- *     summary: Login de usuario
- *     description: Permite autenticar un usuario
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *                 example: admin
- *               password:
- *                 type: string
- *                 example: 1234
- *     responses:
- *       200:
- *         description: Login correcto
- *       401:
- *         description: Credenciales incorrectas
- *       400:
- *         description: Faltan datos
+ * paths:
+ *   /login:
+ *     post:
+ *       summary: Login de usuario
+ *       tags:
+ *         - Autenticación
+ *       description: Permite autenticar un usuario
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LoginRequest'
+ *
+ *       responses:
+ *         "200":
+ *           description: Operacion exitosa
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/LoginResponse'
+ *
+ *         "401":
+ *           description: Datos incorrectos
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorResponse'
+ *
+ *         "400":
+ *           description: Faltan datos
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorResponse'
+ *
+ * components:
+ *   schemas:
+ *
+ *     LoginRequest:
+ *       title: Solicitud de inicio de sesión
+ *       type: object
+ *       required:
+ *         - username
+ *         - password
+ *       properties:
+ *         username:
+ *           type: string
+ *           example: admin
+ *         password:
+ *           type: string
+ *           example: 1234
+ *
+ *     LoginResponse:
+ *       title: Respuesta de inicio de sesión
+ *       type: object
+ *       properties:
+ *         mensaje:
+ *           type: string
+ *
+ *     ErrorResponse:
+ *       title: Respuesta de error
+ *       type: object
+ *       properties:
+ *         mensaje:
+ *           type: string
+ *         detalles:
+ *           type: string
  */
+
+
+
 
 //ruta de documentacion
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
-
-
-
-
-
-
-
 
 
 
