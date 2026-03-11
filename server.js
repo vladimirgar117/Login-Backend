@@ -3,6 +3,9 @@ import swaggerJsdoc from "swagger-jsdoc";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+
+
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -42,8 +45,8 @@ const specs = swaggerJsdoc(options);
 
 
 //Usuario de prueba
-const USERNAME= "admin"
-const PASSWORD = "1234"
+//const USERNAME= "admin"
+//const PASSWORD = "1234"
 
  
 const usuarios = [
