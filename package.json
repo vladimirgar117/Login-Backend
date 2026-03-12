@@ -12,13 +12,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@types/express": "^5.0.6",
-    "@types/node": "^25.4.0",
     "express": "^5.2.1",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "swagger-ui-express": "^5.0.1"
   },
   "repository": {
     "type": "git",
@@ -27,5 +23,14 @@
   "bugs": {
     "url": "https://github.com/vladimirgar117/Login-Backend/issues"
   },
-  "homepage": "https://github.com/vladimirgar117/Login-Backend#readme"
+  "homepage": "https://github.com/vladimirgar117/Login-Backend#readme",
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.5.0",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "nodemon": "^3.1.14",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
 }
