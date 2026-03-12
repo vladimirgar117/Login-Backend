@@ -18,8 +18,9 @@ const app = express();
 app.use(express.json());
 
 // servir frontend
-app.use(express.static(path.join(__dirname, "../public")));
+const publicPath = path.join(process.cwd(), "public");
 
+app.use(express.static(publicPath));
 
 // tipo de usuario
 interface Usuario {
