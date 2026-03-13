@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -27,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/vladimirgar117/Login-Backend/issues"
   },
-  "homepage": "https://github.com/vladimirgar117/Login-Backend#readme"
+  "homepage": "https://github.com/vladimirgar117/Login-Backend#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
 }

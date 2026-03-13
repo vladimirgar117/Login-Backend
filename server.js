@@ -30,12 +30,12 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //arreglo de usuarios
 const usuarios = [
-  { usuario: "admin1", password: "1234" },
-  { usuario: "admin2", password: "1234" },
-  { usuario: "admin3", password: "1234" },
-  { usuario: "admin4", password: "1234" },
-  { usuario: "admin5", password: "1234" },
-  { usuario: "admin", password: "12345" }
+  { usuario: "Admin1", password: "A1C2" },
+  { usuario: "admin2", password: "1A3B" },
+  { usuario: "ADMIN3", password: "1S2D4" },
+  { usuario: "Admin4", password: "F2E4C" },
+  { usuario: "AdmiN5", password: "12a34" },
+  
 ];
 
 
@@ -46,7 +46,8 @@ const usuarios = [
 
 //se crea la ruta de login
 app.post("/login", (req, res) => {
-  const { username, password } = req.body;
+  const username = req.body.username.trim();
+  const password = req.body.password.trim();
 
   // validar que se enviaron datos
   if (!username || !password) {
@@ -55,8 +56,10 @@ app.post("/login", (req, res) => {
 
   // buscar usuario en el arreglo
   const usuarioValido = usuarios.find(
-    (u) => u.usuario === username && u.password === password
-  );
+  (u) =>
+    u.usuario.toLowerCase() === username.toLowerCase() &&
+    u.password === password
+);
 
   if (usuarioValido) {
     return res.json({ message: "Login correcto", user: usuarioValido.usuario });
@@ -79,15 +82,9 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3000/{basepath}",
+        url: "http://localhost:3000/",
         description: "Servidor local",
-        variables: {                  
-          basepath: {                   
-            default: "v1",
-            description: "Versión de la api",
-            enum: [- "v1"]
-             }
-        }
+        
         
       }
       
@@ -120,21 +117,21 @@ const specs = swaggerJsdoc(options);
  *
  *       responses:
  *         "200":
- *           description: Operacion exitosa
+ *           description: Ok
  *           content:
  *             application/json:
  *               schema:
  *                 $ref: '#/components/schemas/LoginResponse'
  *
  *         "401":
- *           description: Datos incorrectos
+ *           description: Bad Request
  *           content:
  *             application/json:
  *               schema:
  *                 $ref: '#/components/schemas/ErrorResponse'
  *
  *         "400":
- *           description: Faltan datos
+ *           description: Unauthorized
  *           content:
  *             application/json:
  *               schema:
@@ -161,16 +158,16 @@ const specs = swaggerJsdoc(options);
  *       title: Respuesta de inicio de sesión
  *       type: object
  *       properties:
- *         mensaje:
+ *         message:
  *           type: string
  *
  *     ErrorResponse:
  *       title: Respuesta de error
  *       type: object
  *       properties:
- *         mensaje:
+ *         message:
  *           type: string
- *         detalles:
+ *         details:
  *           type: string
  */
 

@@ -30,14 +30,14 @@ paths:
 
       responses:
         "200":
-          description: Operacion exitosa
+          description: Ok
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoginResponse'
 
         "401":
-          description: Datos incorrectos
+          description: Bad Request
           content:
             application/json:
               schema:
@@ -45,7 +45,7 @@ paths:
               
 
         "400":
-          description: Faltan datos
+          description: Unauthorized
           content:
             application/json:
               schema:
@@ -74,7 +74,7 @@ components:
       title: Respuesta de inicio de sesión
       type: object
       properties:
-        mensaje:
+        message:
           type: string
          
 
@@ -82,7 +82,7 @@ components:
       title: Respuesta de error
       type: object
       properties:
-        mensaje:
+        message:
           type: string
         detalles: 
           type: string
