@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //arreglo de usuarios
 const usuarios = [
-  { usuario: "Admin1", password: "A1C2" },
+  { usuario: "Admi1", password: "A1C2" },
   { usuario: "admin2", password: "1A3B" },
   { usuario: "ADMIN3", password: "1S2D4" },
   { usuario: "Admin4", password: "F2E4C" },
