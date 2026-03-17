@@ -6,6 +6,9 @@
      "outDir": "./dist",
      "esModuleInterop": true,
     
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
