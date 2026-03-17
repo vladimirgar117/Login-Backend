@@ -40,8 +40,8 @@ const usuarios: Usuario[] = [
 
 // ruta login
   app.post("/login", (req: Request, res: Response) => {
-  const username = req.body.username.trim();
-  const password = req.body.password.trim();
+  const username = req.body.username?.trim();
+  const password = req.body.password?.trim();
 
 
 // validar que se enviaron datos
@@ -76,7 +76,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3000/v1",
+        url: "http://localhost:3000",
         description: "Servidor local"
       }
     ]
@@ -117,14 +117,14 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  *                 $ref: '#/components/schemas/LoginResponse'
  *
  *         "401":
- *           description: Bad Request
+ *           description: Unauthorized
  *           content:
  *             application/json:
  *               schema:
  *                 $ref: '#/components/schemas/ErrorResponse'
  *
  *         "400":
- *           description: Unauthorized
+ *           description: Bad Request
  *           content:
  *             application/json:
  *               schema:
