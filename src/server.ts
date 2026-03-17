@@ -11,7 +11,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// aplicacion que manejara las rutas
+// aplicacion que maneja las rutas
 const app = express();
 
 // se recibe JSON
@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public")));
 
 
-// tipo de usuario
+// usuario
 interface Usuario {
   usuario: string;
   password: string;
@@ -29,38 +29,40 @@ interface Usuario {
 
 // arreglo de usuarios
 const usuarios: Usuario[] = [
-  { usuario: "admin1", password: "1234" },
-  { usuario: "admin2", password: "1234" },
-  { usuario: "admin3", password: "1234" },
-  { usuario: "admin4", password: "1234" },
-  { usuario: "admin5", password: "1234" },
-  { usuario: "admin", password: "12345" }
+  { usuario: "Admin1", password: "A1C2" },
+  { usuario: "admin2", password: "1A3B" },
+  { usuario: "ADMIN3", password: "1S2D4" },
+  { usuario: "Admin4", password: "F2E4C" },
+  { usuario: "AdmiN5", password: "12a34" },
+
 ];
 
 
 // ruta login
-app.post("/login", (req: Request, res: Response) => {
+  app.post("/login", (req: Request, res: Response) => {
+  const username = req.body.username.trim();
+  const password = req.body.password.trim();
 
-  const { username, password } = req.body;
 
+// validar que se enviaron datos
   if (!username || !password) {
     return res.status(400).json({ message: "Faltan datos" });
   }
 
+ // buscar usuario en el arreglo
   const usuarioValido = usuarios.find(
-    (u) => u.usuario === username && u.password === password
-  );
+  (u) =>
+    u.usuario.toLowerCase() === username.toLowerCase() &&
+    u.password === password
+);
 
   if (usuarioValido) {
-    return res.json({
-      message: "Login correcto",
-      user: usuarioValido.usuario
-    });
+    return res.json({ message: "Login correcto", user: usuarioValido.usuario });
+  } else {
+    return res.status(401).json({ message: "Datos incorrectos" });
   }
-
-  return res.status(401).json({ message: "Datos incorrectos" });
-
 });
+
 
 
 // configuracion openapi
@@ -87,6 +89,83 @@ const specs = swaggerJsdoc(options);
 
 // swagger docs
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+
+
+
+/**
+ * @swagger
+ * paths:
+ *   /login:
+ *     post:
+ *       summary: Login de usuario
+ *       tags:
+ *         - Autenticación
+ *       description: Permite autenticar un usuario
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LoginRequest'
+ *
+ *       responses:
+ *         "200":
+ *           description: Ok
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/LoginResponse'
+ *
+ *         "401":
+ *           description: Bad Request
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorResponse'
+ *
+ *         "400":
+ *           description: Unauthorized
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/ErrorResponse'
+ *
+ * components:
+ *   schemas:
+ *
+ *     LoginRequest:
+ *       title: Solicitud de inicio de sesión
+ *       type: object
+ *       required:
+ *         - username
+ *         - password
+ *       properties:
+ *         username:
+ *           type: string
+ *           example: admin
+ *         password:
+ *           type: string
+ *           example: 1234
+ *
+ *     LoginResponse:
+ *       title: Respuesta de inicio de sesión
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *
+ *     ErrorResponse:
+ *       title: Respuesta de error
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *         details:
+ *           type: string
+ */
+
+
+
 
 
 // iniciar servidor
