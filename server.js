@@ -1,31 +1,12 @@
-//importa Swagger
-import swaggerUi from "swagger-ui-express";
-import swaggerJsdoc from "swagger-jsdoc";
 
 // importa Express
 import express from "express";
-import path from "path";
-import { fileURLToPath } from "url";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-
 
 
 // aplicacion que manejara las rutas
 const app = express();
 //se recibe JSON
 app.use(express.json());
-
-
-// Servir archivos estáticos (frontend)
-app.use(express.static(path.join(__dirname, "public")));
-
-
-
-
-
-
 
 
 //arreglo de usuarios
@@ -46,8 +27,8 @@ const usuarios = [
 
 //se crea la ruta de login
 app.post("/login", (req, res) => {
-  const username = req.body.username.trim();
-  const password = req.body.password.trim();
+  const username = req.body.username?.trim();
+  const password = req.body.password?.trim();
 
   // validar que se enviaron datos
   if (!username || !password) {
@@ -67,115 +48,6 @@ app.post("/login", (req, res) => {
     return res.status(401).json({ message: "Datos incorrectos" });
   }
 });
-
-
-
-
-//configuracion openApi
-const options = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "API Login",
-      version: "1.0.0",
-      description: "API para login de usuarios"
-    },
-    servers: [
-      {
-        url: "http://localhost:3000/",
-        description: "Servidor local",
-        
-        
-      }
-      
-    ]
-    
-  },
-  apis: ["./server.js"]
-};
-
-const specs = swaggerJsdoc(options);
-
-
-
-
-/**
- * @swagger
- * paths:
- *   /login:
- *     post:
- *       summary: Login de usuario
- *       tags:
- *         - Autenticación
- *       description: Permite autenticar un usuario
- *       requestBody:
- *         required: true
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/LoginRequest'
- *
- *       responses:
- *         "200":
- *           description: Ok
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/LoginResponse'
- *
- *         "401":
- *           description: Bad Request
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/ErrorResponse'
- *
- *         "400":
- *           description: Unauthorized
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/ErrorResponse'
- *
- * components:
- *   schemas:
- *
- *     LoginRequest:
- *       title: Solicitud de inicio de sesión
- *       type: object
- *       required:
- *         - username
- *         - password
- *       properties:
- *         username:
- *           type: string
- *           example: admin
- *         password:
- *           type: string
- *           example: 1234
- *
- *     LoginResponse:
- *       title: Respuesta de inicio de sesión
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *
- *     ErrorResponse:
- *       title: Respuesta de error
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *         details:
- *           type: string
- */
-
-
-
-
-//ruta de documentacion
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 
 
