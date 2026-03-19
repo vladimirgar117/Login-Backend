@@ -1,24 +1,15 @@
-// importa Swagger
-import swaggerUi from "swagger-ui-express";
-import swaggerJsdoc from "swagger-jsdoc";
+
 
 // importa Express
 import express from "express";
 import type { Request, Response } from "express";
-import path from "path";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // aplicacion que maneja las rutas
 const app = express();
 
 // se recibe JSON
 app.use(express.json());
-
-// servir frontend
-app.use(express.static(path.join(__dirname, "../public")));
 
 
 // usuario
@@ -62,107 +53,6 @@ const usuarios: Usuario[] = [
     return res.status(401).json({ message: "Datos incorrectos" });
   }
 });
-
-
-
-// configuracion openapi
-const options = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "API Login",
-      version: "1.0.0",
-      description: "API para login de usuarios"
-    },
-    servers: [
-      {
-        url: "http://localhost:3000",
-        description: "Servidor local"
-      }
-    ]
-  },
-  apis: ["./src/server.ts"]
-};
-
-const specs = swaggerJsdoc(options);
-
-
-// swagger docs
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
-
-
-
-/**
- * @swagger
- * paths:
- *   /login:
- *     post:
- *       summary: Login de usuario
- *       tags:
- *         - Autenticación
- *       description: Permite autenticar un usuario
- *       requestBody:
- *         required: true
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/LoginRequest'
- *
- *       responses:
- *         "200":
- *           description: Ok
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/LoginResponse'
- *
- *         "401":
- *           description: Unauthorized
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/ErrorResponse'
- *
- *         "400":
- *           description: Bad Request
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/ErrorResponse'
- *
- * components:
- *   schemas:
- *
- *     LoginRequest:
- *       title: Solicitud de inicio de sesión
- *       type: object
- *       required:
- *         - username
- *         - password
- *       properties:
- *         username:
- *           type: string
- *           example: admin
- *         password:
- *           type: string
- *           example: 1234
- *
- *     LoginResponse:
- *       title: Respuesta de inicio de sesión
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *
- *     ErrorResponse:
- *       title: Respuesta de error
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *         details:
- *           type: string
- */
 
 
 
