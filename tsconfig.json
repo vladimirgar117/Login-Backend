@@ -1,6 +1,11 @@
 {
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
+     
+   
+
+
+
     // File Layout
      "rootDir": "./src",
      "outDir": "./dist",
@@ -10,13 +15,19 @@
     "strictNullChecks": true,
     
 
+    
+     
+    
+
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "target": "ES2022",
     "types": ["node"],
-   
+    
+    "allowImportingTsExtensions": true, 
+    "noEmit": true,
    
     
     // For nodejs:
@@ -49,5 +60,10 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
+
+
+    
   }
+
+  
 }
