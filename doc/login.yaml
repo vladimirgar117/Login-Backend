@@ -5,8 +5,14 @@ info:
   description: API para login de usuarios
 
 servers:
-  - url: http://localhost:3000
+  - url: http://localhost:3000/v1
     description: Servidor local
+    variables:
+      basepath:
+        default: v1
+        description: 'Versión de la api'
+        enum:
+          - 'v1'
 
 paths:
   /login:
@@ -24,14 +30,14 @@ paths:
 
       responses:
         "200":
-          description: Operacion exitosa
+          description: Ok
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoginResponse'
 
         "401":
-          description: Datos incorrectos
+          description: Unauthorized
           content:
             application/json:
               schema:
@@ -39,7 +45,7 @@ paths:
               
 
         "400":
-          description: Faltan datos
+          description: Bad Request
           content:
             application/json:
               schema:
@@ -68,7 +74,7 @@ components:
       title: Respuesta de inicio de sesión
       type: object
       properties:
-        mensaje:
+        message:
           type: string
          
 
@@ -76,7 +82,7 @@ components:
       title: Respuesta de error
       type: object
       properties:
-        mensaje:
+        message:
           type: string
-        detalles: 
+        details: 
           type: string
