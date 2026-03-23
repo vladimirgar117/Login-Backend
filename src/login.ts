@@ -1,11 +1,8 @@
-import express from "express";
+import { Router } from "express";
 import type { Request, Response } from "express";
 
+const router = Router();
 
-// aplicacion que maneja las rutas
- const app = express();
-// se recibe JSON
-  app.use(express.json());
 
 // usuario
 interface Usuario {
@@ -25,9 +22,12 @@ const usuarios: Usuario[] = [
 
 
 // ruta login
-  app.post("/login", (req: Request, res: Response) => {
+  router.post("/login", (req: Request, res: Response) => {
   const username = req.body.username?.trim();
   const password = req.body.password?.trim();
+
+  
+
 
 
 // validar que se enviaron datos
@@ -48,3 +48,6 @@ const usuarios: Usuario[] = [
     return res.status(401).json({ message: "Datos incorrectos" });
   }
 });
+
+
+export default router;
