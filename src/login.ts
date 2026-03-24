@@ -2,6 +2,7 @@ import { Router } from "express";
 import type { Request, Response } from "express";
 import  { usuarios } from './data/usuarios-datasource';
 
+import { validateLogin } from "./validations/login.validation";
 
 const router = Router();
 
@@ -11,11 +12,15 @@ const router = Router();
   const username = req.body.username?.trim();
   const password = req.body.password?.trim();
 
+  // Validar body
+  const errors = validateLogin(req.body);
+
   
 // validar que se enviaron datos
-  if (!username || !password) {
-    return res.status(400).json({ message: "Faltan datos" });
+  if (Object.keys(errors).length > 0) {
+    return res.status(400).json(errors);
   }
+
 
  // buscar usuario en el arreglo
   const usuarioValido = usuarios.find(
