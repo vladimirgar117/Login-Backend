@@ -1,7 +1,6 @@
 import { Router } from "express";
 import type { Request, Response } from "express";
 import  { usuarios } from './data/usuarios-datasource';
-
 import { validateLogin } from "./validations/login-validation";
 
 const router = Router();
@@ -9,8 +8,8 @@ const router = Router();
 
 // ruta login
   router.post("/login", (req: Request, res: Response) => {
-  const username = req.body.username?.trim();
-  const password = req.body.password?.trim();
+  const username = req.body.username;
+  const password = req.body.password;
 
   // Validar body
   const errors = validateLogin(req.body);
