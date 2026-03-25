@@ -2,7 +2,7 @@ import { Router } from "express";
 import type { Request, Response } from "express";
 import  { usuarios } from './data/usuarios-datasource';
 
-import { validateLogin } from "./validations/login.validation";
+import { validateLogin } from "./validations/login-validation";
 
 const router = Router();
 
@@ -17,7 +17,7 @@ const router = Router();
 
   
 // validar que se enviaron datos
-  if (Object.keys(errors).length > 0) {
+ if (Object.keys(errors).length > 0) {
     return res.status(400).json(errors);
   }
 

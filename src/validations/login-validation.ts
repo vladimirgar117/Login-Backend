@@ -1,4 +1,5 @@
 
+
 export interface LoginBody {
   username: string;
   password: string;
@@ -18,8 +19,8 @@ export const validateLogin = (body: any): LoginErrors => {
       username: "body inválido",
       password: "body inválido",
     };
-  }
-
+  } 
+  
   const { username, password } = body;
 
   // Regex básica de email
@@ -41,3 +42,5 @@ export const validateLogin = (body: any): LoginErrors => {
 
   return errors;
 };
+
+

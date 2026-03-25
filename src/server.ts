@@ -18,6 +18,13 @@ app.listen(3000, () => {
   console.log("Servidor corriendo en http://localhost:3000");
 });
 
+
+
+
+
+
+
+
 //segmentar archivo (fuera login)
 //crear una funcion para validar body. funcion para validar body
 /*el parametro recibido debe ser un objeto
