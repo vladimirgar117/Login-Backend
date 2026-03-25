@@ -44,3 +44,15 @@ export const validateLogin = (body: any): LoginErrors => {
 };
 
 
+//como validar con unknown
+//cambiar las respuestas de error
+/*
+{
+  "message": "las credenciales son incorrectas",
+  "details" : {
+    "username": "no tiene formato de correo"
+},  
+}
+
+
+*/

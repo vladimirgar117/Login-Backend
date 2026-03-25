@@ -9,8 +9,8 @@ const router = Router();
 
 // ruta login
   router.post("/login", (req: Request, res: Response) => {
-  const username = req.body.username?.trim();
-  const password = req.body.password?.trim();
+  const username = req.body.username;
+  const password = req.body.password;
 
   // Validar body
   const errors = validateLogin(req.body);
