@@ -1,7 +1,6 @@
 import { Router } from "express";
 import type { Request, Response } from "express";
-import  { usuarios } from './data/usuarios-datasource';
-
+import  { users } from './data/users-datasource';
 import { validateLogin } from "./validations/login-validation";
 
 const router = Router();
@@ -9,31 +8,49 @@ const router = Router();
 
 // ruta login
   router.post("/login", (req: Request, res: Response) => {
-  const username = req.body.username;
-  const password = req.body.password;
 
-  // Validar body
+// Validar body
   const errors = validateLogin(req.body);
 
-  
 // validar que se enviaron datos
  if (Object.keys(errors).length > 0) {
-    return res.status(400).json(errors);
+    return res.status(400).json({
+      message: "Error de los datos enviados", 
+      details: errors,
+ });
   }
 
 
+ const {username, password } = req.body as {
+  username : string;
+  password : string;
+ };
+
  // buscar usuario en el arreglo
-  const usuarioValido = usuarios.find(
+  const validUser = users.find(
   (u) =>
-    u.usuario.toLowerCase() === username.toLowerCase() &&
+    u.user.toLowerCase() === username.toLowerCase() &&
     u.password === password
 );
 
-  if (usuarioValido) {
-    return res.json({ message: "Login correcto", user: usuarioValido.usuario });
-  } else {
-    return res.status(401).json({ message: "Datos incorrectos" });
+
+  if (!validUser) {
+    return res.status(401).json({
+      message: "las credenciales son incorrectas",
+      details: {
+        username: "usuario o contraseña invalidos", 
+      },
+    });
   }
+
+  if (validUser) {
+    return res.status(200).json({
+       message: "Login correcto", 
+       data: {
+       user: validUser.user,
+  }
+});
+  } 
 });
 
 
