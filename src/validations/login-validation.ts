@@ -10,7 +10,7 @@ export interface LoginErrors {
   password?: string;
 }
 
-export const validateLogin = (body: any): LoginErrors => {
+export const validateLogin = (body: unknown): LoginErrors => {
   const errors: LoginErrors = {};
 
   // Validar que sea un objeto
@@ -21,20 +21,21 @@ export const validateLogin = (body: any): LoginErrors => {
     };
   } 
   
-  const { username, password } = body;
+  const data = body as {username?: unknown; password: unknown};
+  const { username, password} = data;
 
   // Regex básica de email
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   // Validación username (email)
-  if (!username) {
-    errors.username = "no debe estar vacío";
+  if (typeof username !== "string" || username.trim() === "" ) {
+    errors.username = "no debe estar vacío"
   } else if (!emailRegex.test(username)) {
     errors.username = "no tiene formato de correo";
   }
 
   // Validación password
-  if (!password) {
+  if (typeof password !== "string" || password.trim()=== "") {
     errors.password = "no debe estar vacío";
   } else if (password.length < 4 || password.length > 16) {
     errors.password = "debe tener entre 4 y 16 caracteres";
@@ -44,15 +45,3 @@ export const validateLogin = (body: any): LoginErrors => {
 };
 
 
-//como validar con unknown
-//cambiar las respuestas de error
-/*
-{
-  "message": "las credenciales son incorrectas",
-  "details" : {
-    "username": "no tiene formato de correo"
-},  
-}
-
-
-*/
