@@ -1,13 +1,11 @@
-import  { HttpStatusInfo } from "../enums/http-status";
+import type {LoginBody} from "../interfaces/loginbody.js";
+import { emailRegex } from "../config/regex";
 
-export interface LoginBody {
-  username: string;
-  password: string;
-}
 
-export type LoginErrors = Partial<LoginBody>;
+ type LoginErrors = Partial<LoginBody>;
 
-export const validateLogin = (body: unknown): LoginErrors => {
+ export const validateLogin = (body: LoginBody
+): LoginErrors => {
   const errors: LoginErrors = {};
 
   // Validar que sea un objeto
@@ -18,9 +16,12 @@ export const validateLogin = (body: unknown): LoginErrors => {
   } 
   
  
-  const { username, password} = body as Partial<Record<keyof LoginBody, unknown>>;
+  const { username, password} = body ;
 
-  // Regex básica de email
+
+
+//crear una variable de entorno con regex
+
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   // Validación username (email)
