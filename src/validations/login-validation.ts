@@ -1,28 +1,24 @@
-
+import  { HttpStatusInfo } from "../enums/http-status";
 
 export interface LoginBody {
   username: string;
   password: string;
 }
 
-export interface LoginErrors {
-  username?: string;
-  password?: string;
-}
+export type LoginErrors = Partial<LoginBody>;
 
 export const validateLogin = (body: unknown): LoginErrors => {
   const errors: LoginErrors = {};
 
   // Validar que sea un objeto
-  if (!body || typeof body !== "object") {
+  if (!body || typeof body !== "object" || Array.isArray(body)) {
     return {
-      username: "body inválido",
-      password: "body inválido",
+      username: "Cuerpo de solicitud invalido"
     };
   } 
   
-  const data = body as {username?: unknown; password: unknown};
-  const { username, password} = data;
+ 
+  const { username, password} = body as Partial<Record<keyof LoginBody, unknown>>;
 
   // Regex básica de email
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -35,7 +31,7 @@ export const validateLogin = (body: unknown): LoginErrors => {
   }
 
   // Validación password
-  if (typeof password !== "string" || password.trim()=== "") {
+  if (typeof password !== "string" || password === "") {
     errors.password = "no debe estar vacío";
   } else if (password.length < 4 || password.length > 16) {
     errors.password = "debe tener entre 4 y 16 caracteres";

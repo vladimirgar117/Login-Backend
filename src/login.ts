@@ -45,10 +45,8 @@ const router = Router();
 
   if (validUser) {
     return res.status(200).json({
-       message: "Login correcto", 
-       data: {
-       user: validUser.user,
-  }
+       message: "Login correcto" 
+       
 });
   } 
 });
