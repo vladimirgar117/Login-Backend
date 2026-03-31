@@ -1,6 +1,17 @@
 
+
 import type {LoginBody} from "../interfaces/loginbody.js";
-//import { EMAIL_REGEX } from "../config/regex.js";
+
+import 'dotenv/config';
+
+const Regex = process.env.REGEX_EMAIL;
+
+if (!Regex) {
+  throw new Error('La variable "REGEX_EMAIL" no está definida');
+}
+
+ const REGEX_EMAIL = new RegExp(Regex);
+ 
 
  type LoginErrors = Partial<LoginBody>;
 
@@ -8,11 +19,9 @@ import type {LoginBody} from "../interfaces/loginbody.js";
   const errors: LoginErrors = {};
 
 
-
  const { username, password} = body  ;
 
  
-
 
   // Validar que sea un objeto
   if (!body || typeof body !== "object" || Array.isArray(body)) {
@@ -23,11 +32,11 @@ import type {LoginBody} from "../interfaces/loginbody.js";
   
 
   // Validación username (email)
-  // if (typeof username !== "string" || username.trim() === "" ) {
-  //   errors.username = "no debe estar vacío"
-  // } else if (!EMAIL_REGEX.test(username)) {
-  //   errors.username = "no tiene formato de correo";
-  // }
+  if (typeof username !== "string" || username.trim() === "" ) {
+    errors.username = "no debe estar vacío"
+  } else if (!REGEX_EMAIL.test(username)) {
+    errors.username = "no tiene formato de correo";
+  }
 
   // Validación password
   if (typeof password !== "string" || password === "") {

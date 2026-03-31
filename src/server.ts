@@ -4,8 +4,7 @@ import express from "express";
 
 import loginRoutes from "./login.js";
 
-const value = process.env;
-console.log (value);
+
 
 // aplicacion que maneja las rutas
 const app = express();
