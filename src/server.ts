@@ -4,8 +4,8 @@ import express from "express";
 
 import loginRoutes from "./login.js";
 
-//cargando la variable de entorno (regex_email)
-import 'dotenv/config';
+const value = process.env;
+console.log (value);
 
 // aplicacion que maneja las rutas
 const app = express();

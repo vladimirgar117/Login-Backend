@@ -1,11 +1,18 @@
-import type {LoginBody} from "../interfaces/loginbody.js";
-import { emailRegex } from "../config/regex.js";
 
+import type {LoginBody} from "../interfaces/loginbody.js";
+//import { EMAIL_REGEX } from "../config/regex.js";
 
  type LoginErrors = Partial<LoginBody>;
 
  export const validateLogin = (body: LoginBody): LoginErrors => {
   const errors: LoginErrors = {};
+
+
+
+ const { username, password} = body  ;
+
+ 
+
 
   // Validar que sea un objeto
   if (!body || typeof body !== "object" || Array.isArray(body)) {
@@ -14,17 +21,13 @@ import { emailRegex } from "../config/regex.js";
     };
   } 
   
- 
-  const { username, password} = body  ;
-
-
 
   // Validación username (email)
-  if (typeof username !== "string" || username.trim() === "" ) {
-    errors.username = "no debe estar vacío"
-  } else if (!emailRegex.test(username)) {
-    errors.username = "no tiene formato de correo";
-  }
+  // if (typeof username !== "string" || username.trim() === "" ) {
+  //   errors.username = "no debe estar vacío"
+  // } else if (!EMAIL_REGEX.test(username)) {
+  //   errors.username = "no tiene formato de correo";
+  // }
 
   // Validación password
   if (typeof password !== "string" || password === "") {
@@ -35,5 +38,4 @@ import { emailRegex } from "../config/regex.js";
 
   return errors;
 };
-
 
