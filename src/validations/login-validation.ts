@@ -4,8 +4,7 @@ import { emailRegex } from "../config/regex.js";
 
  type LoginErrors = Partial<LoginBody>;
 
- export const validateLogin = (body: LoginBody
-): LoginErrors => {
+ export const validateLogin = (body: LoginBody): LoginErrors => {
   const errors: LoginErrors = {};
 
   // Validar que sea un objeto
@@ -16,7 +15,7 @@ import { emailRegex } from "../config/regex.js";
   } 
   
  
-  const { username, password} = body ;
+  const { username, password} = body  ;
 
 
 
