@@ -1,5 +1,5 @@
 import type {LoginBody} from "../interfaces/loginbody.js";
-import { emailRegex } from "../config/regex";
+import { emailRegex } from "../config/regex.js";
 
 
  type LoginErrors = Partial<LoginBody>;
@@ -19,10 +19,6 @@ import { emailRegex } from "../config/regex";
   const { username, password} = body ;
 
 
-
-//crear una variable de entorno con regex
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   // Validación username (email)
   if (typeof username !== "string" || username.trim() === "" ) {

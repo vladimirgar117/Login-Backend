@@ -4,7 +4,7 @@ import express from "express";
 
 import loginRoutes from "./login.js";
 
-//cargando las variables
+//cargando la variable de entorno (regex_email)
 import 'dotenv/config';
 
 // aplicacion que maneja las rutas
