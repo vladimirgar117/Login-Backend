@@ -4,7 +4,7 @@ import express from "express";
 
 import loginRoutes from "./login.js";
 
-
+import 'dotenv/config';
 
 // aplicacion que maneja las rutas
 const app = express();

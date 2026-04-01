@@ -4,15 +4,15 @@ import type {LoginBody} from "../interfaces/loginbody.js";
 import 'dotenv/config';
 
 import {valError} from "../class_error/errors.js";
+import { REGEX_EMAIL } from "../config/regex.js";
 
+// const Regex = process.env.REGEX_EMAIL;
 
-const Regex = process.env.REGEX_EMAIL;
+// if (!Regex) {
+//   throw new Error('La variable "REGEX_EMAIL" no está definida');
+// }
 
-if (!Regex) {
-  throw new Error('La variable "REGEX_EMAIL" no está definida');
-}
-
- const REGEX_EMAIL = new RegExp(Regex);
+//  const REGEX_EMAIL = new RegExp(Regex);
  
 
  export type LoginErrors = Partial<LoginBody>;
