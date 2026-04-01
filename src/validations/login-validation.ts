@@ -1,8 +1,10 @@
 
 
 import type {LoginBody} from "../interfaces/loginbody.js";
-
 import 'dotenv/config';
+
+import {valError} from "../class_error/errors.js";
+
 
 const Regex = process.env.REGEX_EMAIL;
 
@@ -13,7 +15,7 @@ if (!Regex) {
  const REGEX_EMAIL = new RegExp(Regex);
  
 
- type LoginErrors = Partial<LoginBody>;
+ export type LoginErrors = Partial<LoginBody>;
 
  export const validateLogin = (body: LoginBody): LoginErrors => {
   const errors: LoginErrors = {};
