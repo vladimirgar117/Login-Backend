@@ -1,14 +1,22 @@
-import  { HttpStatusInfo } from "../enums/http-status";
 
-export interface LoginBody {
-  username: string;
-  password: string;
-}
 
-export type LoginErrors = Partial<LoginBody>;
+import type {LoginBody} from "../interfaces/loginbody.js";
+import 'dotenv/config';
 
-export const validateLogin = (body: unknown): LoginErrors => {
+import {valError} from "../class_error/errors.js";
+import { REGEX_EMAIL } from "../config/regex.js";
+
+
+
+ export type LoginErrors = Partial<LoginBody>;
+
+ export const validateLogin = (body: LoginBody): LoginErrors => {
   const errors: LoginErrors = {};
+
+
+ const { username, password} = body  ;
+
+ 
 
   // Validar que sea un objeto
   if (!body || typeof body !== "object" || Array.isArray(body)) {
@@ -17,16 +25,11 @@ export const validateLogin = (body: unknown): LoginErrors => {
     };
   } 
   
- 
-  const { username, password} = body as Partial<Record<keyof LoginBody, unknown>>;
-
-  // Regex básica de email
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   // Validación username (email)
   if (typeof username !== "string" || username.trim() === "" ) {
     errors.username = "no debe estar vacío"
-  } else if (!emailRegex.test(username)) {
+  } else if (!REGEX_EMAIL.test(username)) {
     errors.username = "no tiene formato de correo";
   }
 
@@ -39,5 +42,4 @@ export const validateLogin = (body: unknown): LoginErrors => {
 
   return errors;
 };
-
 

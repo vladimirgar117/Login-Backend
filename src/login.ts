@@ -2,10 +2,10 @@ import { Router } from "express";
 import type { Request, Response } from "express";
 import  { users } from './data/users-datasource';
 import { validateLogin } from "./validations/login-validation";
+import { HttpStatus } from "./enums/http-status";
+
 
 const router = Router();
-
-
 // ruta login
   router.post("/login", (req: Request, res: Response) => {
 
@@ -35,7 +35,7 @@ const router = Router();
 
 
   if (!validUser) {
-    return res.status(401).json({
+    return res.status(HttpStatus.UNAUTHORIZED).json({
       message: "las credenciales son incorrectas",
       details: {
         username: "usuario o contraseña invalidos", 
@@ -44,7 +44,7 @@ const router = Router();
   }
 
   if (validUser) {
-    return res.status(200).json({
+    return res.status(HttpStatus.OK).json({
        message: "Login correcto" 
        
 });
