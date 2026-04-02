@@ -6,6 +6,8 @@ import loginRoutes from "./login.js";
 
 import 'dotenv/config';
 
+import { PORT } from './config/env.js';
+
 // aplicacion que maneja las rutas
 const app = express();
 
@@ -16,8 +18,8 @@ app.use(express.json());
 app.use("/", loginRoutes);
  
 // iniciar servidor
-app.listen(3000, () => {
-  console.log("Servidor corriendo en http://localhost:3000");
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
 
 
