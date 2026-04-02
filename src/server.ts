@@ -4,7 +4,7 @@ import express from "express";
 
 import loginRoutes from "./login.js";
 
-import 'dotenv/config';
+// import 'dotenv/config';
 
 import { PORT } from './config/port.js';
 
