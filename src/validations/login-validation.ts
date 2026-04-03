@@ -7,10 +7,10 @@ import {ValError} from "../class_error/errors.js";
 import { REGEX_EMAIL } from "../config/regex.js";
 import  { ErrorCode } from "../enums/error-code.js";
 //import type { OptionalFields } from "../utils/optional-fields.js";
-import type {LoginErrors} from "../interfaces/login-errors.js";
+//import type {LoginErrors} from "../interfaces/login-errors.js";
 
  //export type LoginErrors = Partial<LoginBody>;
-
+export type LoginErrors<T> = Partial<Record<keyof T, string>>;
  export const validateLogin = (body: unknown): void => {
  
  // Validar que sea un objeto
@@ -24,7 +24,7 @@ import type {LoginErrors} from "../interfaces/login-errors.js";
 
    const { username, password} = body as LoginBody ;
  
-  const errors: LoginErrors<LoginBody> = {};
+  const errors: LoginErrors<LoginBody>= {};
  
   
   // Validación username (email)
