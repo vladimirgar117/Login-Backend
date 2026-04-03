@@ -13,14 +13,7 @@ import type {LoginErrors} from "../interfaces/login-errors.js";
 
  export const validateLogin = (body: unknown): void => {
  
- 
-
-   const { username, password} = body as LoginBody ;
- 
-  const errors: LoginErrors<LoginBody> = {};
- 
-  
-// Validar que sea un objeto
+ // Validar que sea un objeto
   if (!body || typeof body !== "object" || Array.isArray(body)) {
     throw new ValError<LoginBody>(
       "Cuerpo inválido",
@@ -29,14 +22,11 @@ import type {LoginErrors} from "../interfaces/login-errors.js";
   } 
 
 
-
-
-
+   const { username, password} = body as LoginBody ;
  
-
+  const errors: LoginErrors<LoginBody> = {};
+ 
   
-  
-
   // Validación username (email)
   if (typeof username !== "string" || username.trim() === "" ) {
     errors.username = "no debe estar vacío"
@@ -51,6 +41,16 @@ import type {LoginErrors} from "../interfaces/login-errors.js";
     errors.password = "debe tener entre 4 y 16 caracteres";
   }
 
- // return errors;
+  if (Object.keys(errors).length > 0) {
+    throw new ValError<LoginBody>(
+      "Errores de validación",
+      ErrorCode.INVALID_ENTITY,
+      errors
+ 
+       
+ );
+
+  }
 };
+        
 
