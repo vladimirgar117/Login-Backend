@@ -1,34 +1,40 @@
 
 
-import type {LoginBody} from "../interfaces/loginbody.js";
+import type {LoginBody} from "../interfaces/login-body.js";
 
 import 'dotenv/config';
+import {ValError} from "../class_error/errors.js";
+import { REGEX_EMAIL } from "../config/regex.js";
+import  { ErrorCode } from "../enums/error-code.js";
+//import type { OptionalFields } from "../utils/optional-fields.js";
+import type {LoginErrors} from "../interfaces/login-errors.js";
 
-const Regex = process.env.REGEX_EMAIL;
+ //export type LoginErrors = Partial<LoginBody>;
 
-if (!Regex) {
-  throw new Error('La variable "REGEX_EMAIL" no está definida');
-}
-
- const REGEX_EMAIL = new RegExp(Regex);
+ export const validateLogin = (body: unknown): void => {
+ 
  
 
- type LoginErrors = Partial<LoginBody>;
-
- export const validateLogin = (body: LoginBody): LoginErrors => {
-  const errors: LoginErrors = {};
-
-
- const { username, password} = body  ;
-
+   const { username, password} = body as LoginBody ;
  
-
-  // Validar que sea un objeto
+  const errors: LoginErrors<LoginBody> = {};
+ 
+  
+// Validar que sea un objeto
   if (!body || typeof body !== "object" || Array.isArray(body)) {
-    return {
-      username: "Cuerpo de solicitud invalido"
-    };
+    throw new ValError<LoginBody>(
+      "Cuerpo inválido",
+      ErrorCode.INVALID_ENTITY
+    );
   } 
+
+
+
+
+
+ 
+
+  
   
 
   // Validación username (email)
@@ -45,6 +51,6 @@ if (!Regex) {
     errors.password = "debe tener entre 4 y 16 caracteres";
   }
 
-  return errors;
+ // return errors;
 };
 
