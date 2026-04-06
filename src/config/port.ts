@@ -1,3 +1,6 @@
+import './load-env.js';
+
+
 const rawPort = process.env.PORT;
 
 if (!rawPort) {

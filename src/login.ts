@@ -3,52 +3,54 @@ import type { Request, Response } from "express";
 import  { users } from './data/users-datasource';
 import { validateLogin } from "./validations/login-validation";
 import { HttpStatus } from "./enums/http-status";
-
+import { ValError } from "./class_error/errors";
+import type { LoginBody } from "./interfaces/login-body";
+import  { ErrorCode } from "./enums/error-code.js";
+import { USER_ERROR_MESSAGES } from "./utils/messages.js";
 
 const router = Router();
 // ruta login
-  router.post("/login", (req: Request, res: Response) => {
+ router.post("/login", (req: Request, res: Response) => {
+  try {
+   
+    validateLogin(req.body);
 
-// Validar body
-  const errors = validateLogin(req.body);
+    const { username, password } = req.body as LoginBody;
+      
 
-// validar que se enviaron datos
- if (Object.keys(errors).length > 0) {
-    return res.status(400).json({
-      message: "Error de los datos enviados", 
-      details: errors,
- });
+    const validUser = users.find(
+      (u) =>
+        u.user.toLowerCase() === username.toLowerCase() &&
+        u.password === password
+    );
+
+
+    if (!validUser) {
+    throw new ValError<LoginBody>(
+  "Credenciales incorrectas",
+  ErrorCode.UNAUTHORIZED,
+  {
+    username: USER_ERROR_MESSAGES.INVALID_CREDENTIALS,
   }
-
-
- const {username, password } = req.body as {
-  username : string;
-  password : string;
- };
-
- // buscar usuario en el arreglo
-  const validUser = users.find(
-  (u) =>
-    u.user.toLowerCase() === username.toLowerCase() &&
-    u.password === password
 );
+}
+    return res.status(HttpStatus.OK).json({
+      message: "Login correcto",
+    });
 
+  } catch (err: unknown) {
+    if (err instanceof ValError) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        message: err.message,
+        code: err.code,
+        errors: err.errors ?? {},
+      });
+    }
 
-  if (!validUser) {
-    return res.status(HttpStatus.UNAUTHORIZED).json({
-      message: "las credenciales son incorrectas",
-      details: {
-        username: "usuario o contraseña invalidos", 
-      },
+    return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+      message: "Error interno",
     });
   }
-
-  if (validUser) {
-    return res.status(HttpStatus.OK).json({
-       message: "Login correcto" 
-       
-});
-  } 
 });
 
 
