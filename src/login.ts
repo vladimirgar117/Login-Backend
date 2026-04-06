@@ -4,19 +4,19 @@ import  { users } from './data/users-datasource';
 import { validateLogin } from "./validations/login-validation";
 import { HttpStatus } from "./enums/http-status";
 import { ValError } from "./class_error/errors";
-
+import type { LoginBody } from "./interfaces/login-body";
+import  { ErrorCode } from "./enums/error-code.js";
+import { USER_ERROR_MESSAGES } from "./utils/messages.js";
 
 const router = Router();
 // ruta login
  router.post("/login", (req: Request, res: Response) => {
   try {
-    // 🔥 si algo está mal, aquí se lanza el ValError
+   
     validateLogin(req.body);
 
-    const { username, password } = req.body as {
-      username: string;
-      password: string;
-    };
+    const { username, password } = req.body as LoginBody;
+      
 
     const validUser = users.find(
       (u) =>
@@ -24,15 +24,16 @@ const router = Router();
         u.password === password
     );
 
-    if (!validUser) {
-      return res.status(HttpStatus.UNAUTHORIZED).json({
-        message: "las credenciales son incorrectas",
-        details: {
-          username: "usuario o contraseña inválidos",
-        },
-      });
-    }
 
+    if (!validUser) {
+    throw new ValError<LoginBody>(
+  "Credenciales incorrectas",
+  ErrorCode.UNAUTHORIZED,
+  {
+    username: USER_ERROR_MESSAGES.INVALID_CREDENTIALS,
+  }
+);
+}
     return res.status(HttpStatus.OK).json({
       message: "Login correcto",
     });

@@ -1,4 +1,4 @@
-
+import './load-env.js';
 
 const rawRegex = process.env.REGEX_EMAIL;
 
