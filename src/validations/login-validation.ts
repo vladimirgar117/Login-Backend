@@ -1,10 +1,10 @@
 import type {LoginBody} from "../interfaces/login-body.js";
-import {ValError} from "../class_error/errors.js";
+import {ValError} from "../class/errors.js";
 import { REGEX_EMAIL } from "../config/regex.js";
 import  { ErrorCode } from "../enums/error-code.js";
 import type {LoginErrors} from "../interfaces/login-errors.js";
 import { isObject, isString } from "../utils/functions.ts";
-import { USER_ERROR_MESSAGES } from "../utils/messages.ts";
+import { USER_ERROR_MESSAGES } from "../utils/error-messages.ts";
 
  
 export const validateLogin = (body: unknown): void => {
@@ -40,7 +40,7 @@ export const validateLogin = (body: unknown): void => {
 
   if (Object.keys(errors).length > 0) {
     throw new ValError<LoginBody>(
-      "Errores de validación",
+      USER_ERROR_MESSAGES.VALIDATION_ERRORS,
       ErrorCode.INVALID_ENTITY,
       errors
  

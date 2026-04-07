@@ -3,10 +3,12 @@ import type { Request, Response } from "express";
 import  { users } from './data/users-datasource';
 import { validateLogin } from "./validations/login-validation";
 import { HttpStatus } from "./enums/http-status";
-import { ValError } from "./class_error/errors";
+import { ValError } from "./class/errors.js";
 import type { LoginBody } from "./interfaces/login-body";
 import  { ErrorCode } from "./enums/error-code.js";
-import { USER_ERROR_MESSAGES } from "./utils/messages.js";
+import { SuccessCode } from "./enums/success-code.js";
+import { USER_ERROR_MESSAGES } from "./utils/error-messages.js";
+import { USER_SUCCESS_MESSAGES } from "./utils/success-messages.js";
 
 const router = Router();
 // ruta login
@@ -27,15 +29,17 @@ const router = Router();
 
     if (!validUser) {
     throw new ValError<LoginBody>(
-  "Credenciales incorrectas",
+  USER_ERROR_MESSAGES.INVALID_CREDENTIALS,
   ErrorCode.UNAUTHORIZED,
   {
-    username: USER_ERROR_MESSAGES.INVALID_CREDENTIALS,
+    username: USER_ERROR_MESSAGES.INVALID_LOGIN_FIELD,
   }
 );
 }
     return res.status(HttpStatus.OK).json({
-      message: "Login correcto",
+      message: USER_SUCCESS_MESSAGES.LOGIN_SUCCESS,
+      code: SuccessCode.SUCCESS,
+      details: null,
     });
 
   } catch (err: unknown) {
@@ -43,12 +47,12 @@ const router = Router();
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: err.message,
         code: err.code,
-        errors: err.errors ?? {},
+        details: err.errors ?? {},
       });
     }
 
     return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-      message: "Error interno",
+      message: USER_ERROR_MESSAGES.INTERNAL_ERROR,
     });
   }
 });
