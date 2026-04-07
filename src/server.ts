@@ -1,12 +1,11 @@
-
 // importa Express
-import express from "express";
+import express from 'express';
 
-import loginRoutes from "./login.js";
+import loginRoutes from './login.js';
 
 import { PORT } from './config/port.js';
 
-
+import { errorHandler } from './middlewares/error-handler.js';
 
 // aplicacion que maneja las rutas
 const app = express();
@@ -15,16 +14,11 @@ const app = express();
 app.use(express.json());
 
 // conectar rutas
-app.use("/", loginRoutes);
- 
+app.use('/', loginRoutes);
+
+app.use(errorHandler);
+
 // iniciar servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
-
-
-
-
-
-
-

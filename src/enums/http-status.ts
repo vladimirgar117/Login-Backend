@@ -1,17 +1,14 @@
-
-
-
 export enum HttpStatus {
   /**
-   * la peticion fue exitosa
+   * La peticion fue exitosa
    */
   OK = 200,
   /**
-   * la peticion esta mal formada 
+   * La peticion esta mal formada
    */
   BAD_REQUEST = 400,
   /**
-   * no esta autenticado
+   * No esta autenticado
    */
   UNAUTHORIZED = 401,
   /**
@@ -19,13 +16,11 @@ export enum HttpStatus {
    */
   FORBIDDEN = 403,
   /**
-   * el recurso no existe
+   * El recurso no existe
    */
   NOT_FOUND = 404,
   /**
    * Error inesperado del servidor
    */
   INTERNAL_SERVER_ERROR = 500,
-
 }
-
