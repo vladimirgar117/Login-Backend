@@ -1,16 +1,18 @@
 import './load-env.js';
+import { EnvError } from '../class/env-error.js';
+import { USER_ERROR_MESSAGES } from '../utils/error-messages.js';
 
 
 const rawPort = process.env.PORT;
 
 if (!rawPort) {
-  throw new Error('La variable "PORT" no está definida');
+  throw new EnvError(USER_ERROR_MESSAGES.PORT_UNDEFINED);
 }
 
 const PORT = Number(rawPort);
 
 if (Number.isNaN(PORT)) {
-  throw new Error('La variable "PORT" debe ser un número');
+  throw new EnvError(USER_ERROR_MESSAGES.PORT_NOT_NUMBER);
 }
 
 export { PORT };

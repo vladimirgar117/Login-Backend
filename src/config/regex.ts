@@ -1,9 +1,12 @@
 import './load-env.js';
+import { USER_ERROR_MESSAGES } from '../utils/error-messages.js';
+import { EnvError } from '../class/env-error.js';
+
 
 const rawRegex = process.env.REGEX_EMAIL;
 
 if (!rawRegex) {
-  throw new Error('La variable "REGEX_EMAIL" no está definida');
+  throw new EnvError(USER_ERROR_MESSAGES.REGEX_EMAIL_UNDEFINED);
 }
 
 // Limpia posibles / al inicio y final
