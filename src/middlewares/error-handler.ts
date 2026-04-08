@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
 import { ValError } from '../class/errors.js';
 import { HttpStatus } from '../enums/http-status.js';
-import { USER_ERROR_MESSAGES } from '../utils/error-messages.js';
+import { USER_ERROR_MESSAGES } from '../utils/user-error-messages.js';
 
 export const errorHandler = (err: unknown, _req: Request, res: Response, _next: NextFunction) => {
   if (err instanceof ValError) {

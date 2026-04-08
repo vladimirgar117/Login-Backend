@@ -3,7 +3,7 @@ import { REGEX_EMAIL } from '../config/regex.js';
 import { ErrorCode } from '../enums/error-code.js';
 import type { LoginBody } from '../interfaces/login-body.js';
 import type { LoginErrors } from '../interfaces/login-errors.js';
-import { USER_ERROR_MESSAGES } from '../utils/error-messages.ts';
+import { USER_ERROR_MESSAGES } from '../utils/user-error-messages.ts';
 import { isObject, isString } from '../utils/functions.ts';
 
 export const validateLogin = (body: unknown): void => {
@@ -21,7 +21,7 @@ export const validateLogin = (body: unknown): void => {
   if (!isString(username) || username.trim() === '') {
     errors.username = USER_ERROR_MESSAGES.USERNAME_EMPTY;
   } else if (!REGEX_EMAIL.test(username)) {
-    errors.username = USER_ERROR_MESSAGES.USERNAME_FORMAT;
+    errors.username = USER_ERROR_MESSAGES.USERNAME.INVALID;
   }
 
   // Validación password

@@ -6,7 +6,7 @@ import { ErrorCode } from './enums/error-code.js';
 import { HttpStatus } from './enums/http-status';
 import { SuccessCode } from './enums/success-code.js';
 import type { LoginBody } from './interfaces/login-body';
-import { USER_ERROR_MESSAGES } from './utils/error-messages.js';
+import { USER_ERROR_MESSAGES } from './utils/user-error-messages.js';
 import { USER_SUCCESS_MESSAGES } from './utils/success-messages.js';
 import { validateLogin } from './validations/login-validation';
 
