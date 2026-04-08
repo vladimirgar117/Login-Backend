@@ -1,4 +1,4 @@
-import type { Request, Response, NextFunction } from 'express';
+import type { Request, Response } from 'express';
 import { Router } from 'express';
 import { ValError } from './class/errors.js';
 import { users } from './data/users-datasource';

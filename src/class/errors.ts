@@ -11,6 +11,6 @@ export class ValError<T> extends Error {
     this.code = code;
     this.errors = errors;
 
-    Object.setPrototypeOf(this, ValError.prototype);
+    Object.setPrototypeOf(this, new.target.prototype);
   }
 }

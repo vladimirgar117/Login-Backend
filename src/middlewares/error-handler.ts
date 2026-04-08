@@ -8,7 +8,7 @@ export const errorHandler = (err: unknown, _req: Request, res: Response, _next: 
     return res.status(HttpStatus.BAD_REQUEST).json({
       message: err.message,
       code: err.code,
-      errors: err.errors ?? {},
+      errors: err.errors ?? null,
     });
   }
 
