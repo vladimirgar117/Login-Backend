@@ -1,13 +1,18 @@
 import { ErrorCode } from '../enums/error-code.js';
-import type { LoginErrors } from '../interfaces/login-errors.js';
+import type { FieldErrors } from '../interfaces/field-errors.js';
 
-export class ValError<T> extends Error {
+export class AppError<T> extends Error {
   public readonly code: ErrorCode;
-  public readonly errors: LoginErrors<T> | undefined;
+  public readonly errors: FieldErrors<T> | undefined;
 
-  constructor(message: string, code: ErrorCode, errors?: LoginErrors<T>) {
+  constructor(
+    message: string,
+    code: ErrorCode,
+    errors?: FieldErrors<T>
+  ) {
     super(message);
-    this.name = 'ValError';
+
+    this.name = 'AppError';
     this.code = code;
     this.errors = errors;
 

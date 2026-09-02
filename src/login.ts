@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 import { Router } from 'express';
-import { ValError } from './class/errors.js';
+import { AppError } from './class/errors.js';
 import { users } from './data/users-datasource';
 import { ErrorCode } from './enums/error-code.js';
 import { HttpStatus } from './enums/http-status';
@@ -22,7 +22,7 @@ router.post('/login', (req: Request, res: Response) => {
   );
 
   if (!validUser) {
-    throw new ValError<LoginBody>(USER_ERROR_MESSAGES.INVALID_CREDENTIALS, ErrorCode.UNAUTHORIZED, {
+    throw new AppError(USER_ERROR_MESSAGES.INVALID_CREDENTIALS, ErrorCode.INVALID_CREDENTIALS, {
       username: USER_ERROR_MESSAGES.INVALID_LOGIN_FIELD,
     });
   }
