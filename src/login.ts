@@ -17,7 +17,7 @@ router.post('/login', (req: Request, res: Response) => {
 
   const validUser = users.find(
     (u) =>
-      u.user.toLowerCase() === username.toLowerCase() &&
+      u.username.toLowerCase() === username.toLowerCase() &&
       u.password === password
   );
 
