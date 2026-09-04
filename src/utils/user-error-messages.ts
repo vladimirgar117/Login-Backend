@@ -15,8 +15,9 @@ export const USER_ERROR_MESSAGES = {
 
  
   INVALID_LOGIN_FIELD: 'Verifica tus datos',
-  INVALID_CREDENTIALS: 'Usuario o contraseña inválidos',
 
+  INVALID_CREDENTIALS: 'Usuario o contraseña inválidos',
+  
   VALIDATION_ERRORS: 'Errores de validación',
   
 } as const;

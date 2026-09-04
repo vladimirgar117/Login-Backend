@@ -11,6 +11,7 @@ const ERROR_STATUS: Record<ErrorCode, HttpStatus> = {
   [ErrorCode.INVALID_ENTITY]: HttpStatus.BAD_REQUEST,
   [ErrorCode.INVALID_CREDENTIALS]: HttpStatus.UNAUTHORIZED,
   [ErrorCode.NOT_FOUND]: HttpStatus.NOT_FOUND,
+  [ErrorCode.METHOD_NOT_ALLOWED]: HttpStatus.METHOD_NOT_ALLOWED,
   [ErrorCode.INTERNAL_ERROR]: HttpStatus.INTERNAL_SERVER_ERROR,
 };
 

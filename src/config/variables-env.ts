@@ -1,38 +1,62 @@
 import './load-env.js';
-import { ENV_ERRORS_MESSAGES } from '../utils/env-error-messages.js';
-import { EnvError } from '../class/env-error.js';
 
+import { AppError } from '../class/errors.js';
+import { ErrorCode } from '../enums/error-code.js';
+import { ENV_ERROR_MESSAGES } from '../utils/env-error-messages.js';
 
 // Helpers privados
+
 const getString = (key: string, error: string): string => {
   const value = process.env[key];
-  if (!value) throw new EnvError(error);
+
+  if (!value) {
+    throw new AppError(
+      error,
+      ErrorCode.INTERNAL_ERROR
+    );
+  }
+
   return value;
 };
 
-const getNumber = (key: string, errorUndefined: string, errorNaN: string): number => {
+const getNumber = (
+  key: string,
+  errorUndefined: string,
+  errorNaN: string
+): number => {
   const value = getString(key, errorUndefined);
   const num = Number(value);
-  if (Number.isNaN(num)) throw new EnvError(errorNaN);
+
+  if (Number.isNaN(num)) {
+    throw new AppError(
+      errorNaN,
+      ErrorCode.INTERNAL_ERROR
+    );
+  }
+
   return num;
 };
 
-const getRegex = (key: string, error: string): RegExp => {
+const getRegex = (
+  key: string,
+  error: string
+): RegExp => {
   const value = getString(key, error);
-  const cleaned = value.replace(/^\/|\/$/g, "");
+
+  const cleaned = value.replace(/^\/|\/$/g, '');
+
   return new RegExp(cleaned);
 };
 
-
 export const ENV = {
   PORT: getNumber(
-    "PORT",
-    ENV_ERRORS_MESSAGES.PORT_UNDEFINED,
-    ENV_ERRORS_MESSAGES.PORT_NOT_NUMBER
+    'PORT',
+    ENV_ERROR_MESSAGES.PORT_UNDEFINED,
+    ENV_ERROR_MESSAGES.PORT_NOT_NUMBER
   ),
 
   REGEX_EMAIL: getRegex(
-    "REGEX_EMAIL",
-    ENV_ERRORS_MESSAGES.REGEX_EMAIL_UNDEFINED
+    'REGEX_EMAIL',
+    ENV_ERROR_MESSAGES.REGEX_EMAIL_UNDEFINED
   ),
 } as const;

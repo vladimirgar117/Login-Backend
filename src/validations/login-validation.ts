@@ -58,7 +58,10 @@ export const validateLogin = (body: unknown): LoginBody => {
     );
   }
 
-  if (normalizedUsername === undefined || normalizedPassword === undefined) {
+  if (
+    normalizedUsername === undefined ||
+    normalizedPassword === undefined
+  ) {
     throw new AppError<LoginBody>(
       USER_ERROR_MESSAGES.VALIDATION_ERRORS,
       ErrorCode.INVALID_ENTITY,

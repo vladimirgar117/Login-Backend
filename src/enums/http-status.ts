@@ -20,7 +20,12 @@ export enum HttpStatus {
    */
   NOT_FOUND = 404,
   /**
-   * Error inesperado del servidor
+   * metodo no permitido
+   */
+  METHOD_NOT_ALLOWED = 405,
+  /**
+   * Error interno del servidor
    */
   INTERNAL_SERVER_ERROR = 500,
+  
 }
