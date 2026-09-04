@@ -22,14 +22,14 @@ const getString = (key: string, error: string): string => {
 const getNumber = (
   key: string,
   errorUndefined: string,
-  errorNaN: string
+  errorNotNumber: string
 ): number => {
   const value = getString(key, errorUndefined);
   const num = Number(value);
 
   if (Number.isNaN(num)) {
     throw new AppError(
-      errorNaN,
+      errorNotNumber,
       ErrorCode.INTERNAL_ERROR
     );
   }
@@ -43,9 +43,7 @@ const getRegex = (
 ): RegExp => {
   const value = getString(key, error);
 
-  const cleaned = value.replace(/^\/|\/$/g, '');
-
-  return new RegExp(cleaned);
+  return new RegExp(value);
 };
 
 export const ENV = {
