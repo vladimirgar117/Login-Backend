@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import { Router } from 'express';
 import { AppError } from './class/errors.js';
 import { users } from './data/users-datasource.js';
+import { authenticateUser } from './services/auth-service.js';
 import { ErrorCode } from './enums/error-code.js';
 import { HttpStatus } from './enums/http-status.js';
 import { SuccessCode } from './enums/success-code.js';
@@ -15,11 +16,7 @@ const router = Router();
 router.post('/login', (req: Request, res: Response) => {
   const { username, password } = validateLogin(req.body);
 
-  const validUser = users.find(
-    (u) =>
-      u.username.toLowerCase() === username.toLowerCase() &&
-      u.password === password
-  );
+ const validUser = authenticateUser(username, password);
 
   if (!validUser) {
     throw new AppError(
