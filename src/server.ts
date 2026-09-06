@@ -1,10 +1,13 @@
 import express from 'express';
 
 import loginRoutes from './login.js';
-import {methodNotAllowedHandler} from './middlewares/method-not-allowed-handler.js';
-import { errorHandler } from './middlewares/error-handler.js';
-import { notFoundHandler } from './middlewares/not-found-handler.js';
+
 import { ENV } from './config/variables-env.js';
+
+import { errorHandler } from './middlewares/error-handler.js';
+import {methodNotAllowedHandler} from './middlewares/method-not-allowed-handler.js';
+import { notFoundHandler } from './middlewares/not-found-handler.js';
+
 
 const app = express();
 

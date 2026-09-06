@@ -11,7 +11,7 @@ import { USER_SUCCESS_MESSAGES } from './utils/success-messages.js';
 import { validateLogin } from './validations/login-validation.js';
 
 const router = Router();
-// ruta login
+
 router.post('/login', (req: Request, res: Response) => {
   const { username, password } = validateLogin(req.body);
 
